@@ -6,7 +6,7 @@ class Bank
 private:
     string accHolder;
     int accNo;
-    double Balance, dep, w;
+    double Balance, dep, WithdramAmount;
 
 public:
     void getData()
@@ -48,15 +48,15 @@ public:
     void withdraw()
     {
         cout << endl << "Enter amount you want to withdraw: ";
-        cin >> w;
+        cin >> WithdramAmount;
 
-        if (w > Balance)
+        if (WithdramAmount > Balance)
         {
             cout << endl << "You can't withdraw this much amount since you don't have sufficient Balance.";
         }
         else
         {
-            Balance -= w;
+            Balance -= WithdramAmount;
             cout << endl << "You have withdrawn money successfully.";
         }
     }
@@ -65,8 +65,8 @@ public:
 
 int main()
 {
-    Bank b[100];
-    int accFind;
+    Bank BankArray[100];
+    int AccFinds;
     int choice;
     int numAcc = 0;
 
@@ -87,7 +87,7 @@ int main()
         {
         case 1:
         {
-            b[numAcc].getData();
+            BankArray[numAcc].getData();
             numAcc++;
             break;
         }
@@ -95,13 +95,13 @@ int main()
         case 2:
         {
             cout << "Enter the account number: ";
-            cin >> accFind;
+            cin >> AccFinds;
 
             for (int i = 0; i < numAcc; i++)
             {
-                if (b[i].getAcc() == accFind)
+                if (BankArray[i].getAcc() == AccFinds)
                 {
-                    b[i].Deposit();
+                    BankArray[i].Deposit();
                     found = true;
                     break;
                 }
@@ -117,13 +117,13 @@ int main()
         case 3:
         {
             cout << "Enter the account number: ";
-            cin >> accFind;
+            cin >> AccFinds;
 
             for (int i = 0; i < numAcc; i++)
             {
-                if (b[i].getAcc() == accFind)
+                if (BankArray[i].getAcc() == AccFinds)
                 {
-                    b[i].withdraw();
+                    BankArray[i].withdraw();
                     found = true;
                     break;
                 }
@@ -139,13 +139,13 @@ int main()
         case 4:
         {
             cout << "Enter the account number: ";
-            cin >> accFind;
+            cin >> AccFinds;
 
             for (int i = 0; i < numAcc; i++)
             {
-                if (b[i].getAcc() == accFind)
+                if (BankArray[i].getAcc() == AccFinds)
                 {
-                    b[i].DisplayAcc();
+                    BankArray[i].DisplayAcc();
                     found = true;
                     break;
                 }
