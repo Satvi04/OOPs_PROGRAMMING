@@ -1,98 +1,104 @@
-
-
-
 #include<iostream>
-#include<string.h>
 using namespace std;
 
+class Product {
+    int ProdID, Quantity;
+    float Price;
+    char ProdName[20];
 
- class Student
- {
-     int Rollnumber;
-     string Name;
-     int Marks[3];
 public:
-     //default
-     Student()
-     {
-     Rollnumber=0;
-     Name="default name";
-     Marks[0]=Marks[1]=Marks[2]=0;
-     }
+    void AddProd() {
+        cout << "Enter product ID: ";
+        cin >> ProdID;
+        cout << "Enter name of product: ";
+        cin >> ProdName;
+        cout << "Enter price of product: ";
+        cin >> Price;
+        Quantity = 1;
+        cout << "Product is added successfully!" << endl;
+    }
 
+    int getID() {
+        return ProdID;
+    }
 
-     //parameterazid
-     Student(int r,string n,int m1,int m2,int m3)
-     {
-         Rollnumber=r;
-         Name=n;
-         Marks[0]=m1;
-         Marks[1]=m2;
-         Marks[2]=m3;
+    void UpdateQuan() {
+        cout << "Enter no. of quantity to be update: ";
+        cin >> Quantity;
+        cout << "Quantity is updated successfully!" << endl;
+    }
 
+    float CalculateValue() {
+        return Quantity * Price;
+    }
 
-     }
+    void DisplayBill() {
+        cout << ProdName << "\t" << Quantity << "\t\t" << Price << "\t" << CalculateValue() << endl;
+    }
+};
 
-     //function to calculate average
+int main() {
+    Product P[100];
+    int Choice;
+    int ProdCount = 0;
 
+    cout << "Enter 1 to add new product." << endl;
+    cout << "Enter 2 to update quantity of product." << endl;
+    cout << "Enter 3 to display bill." << endl;
+    cout << "Enter 0 to exit." << endl;
+    cout << "======================================" << endl;
 
-     double calculateAverage()
-     {
-         return (Marks[0]+Marks[1]+Marks[2])/3.0;
-     }
+    while (true) {
+        cout << "Enter the option which you want: ";
+        cin >> Choice;
 
+        switch (Choice) {
+        case 1: {
+            P[ProdCount].AddProd();
+            ProdCount++;
+            break;
+        }
 
-     //function to Display details
+        case 2: {
+            int ProdFind;
+            cout << "Enter product ID: ";
+            cin >> ProdFind;
 
+            bool found = false;
+            for (int i = 0; i < ProdCount; i++) {
+                if (P[i].getID() == ProdFind) {
+                    P[i].UpdateQuan();
+                    found = true;
+                    break;
+                }
+            }
+            if (!found) {
+                cout << "Product not found!" << endl;
+            }
+            break;
+        }
 
-     void Display()
+        case 3: {
+            float TotalValue = 0;
+            cout << "--------------------------------------" << endl;
+            cout << "Name\tQuantity\tPrice\tTotal" << endl;
+            cout << "--------------------------------------" << endl;
+            for (int i = 0; i < ProdCount; i++) {
+                P[i].DisplayBill();
+                TotalValue += P[i].CalculateValue();
+            }
+            cout << "--------------------------------------" << endl;
+            cout << "TOTAL VALUE = " << TotalValue << endl;
+            cout << "--------------------------------------" << endl;
+            break;
+        }
 
-     {
-         cout<<"ROLL NUMBER :" <<Rollnumber<<endl;
-         cout<<"NAME : "<<Name<<endl;
-         cout<<"AVERAGE MARKS : "<<calculateAverage()<<endl;
+        case 0: {
+            return 0;
+        }
 
-     }
- };
-
-
- int main()
- {
-     Student s[3];
-
-
-     for(int i=0; i<3 ; i++)
-     {
-
-
-     int roll,m1,m2,m3;
-     string name;
-
-     //entering details
-
-      cout<<"Enter details for Student "<<i+1<<endl;
-      cout<<"enter roll number :";
-      cin>>roll;
-      cout<<"enter name :";
-      cin>>name;
-      cout<<"enter Marks of three subjects :";
-      cin>>m1>>m2>>m3;
-
-
-      s[i]=Student(roll,name,m1,m2,m3);
-
-     }
-
-     //displaying details
-
-     for(int i=0 ; i<3 ; i++)
-     {
-         cout<<endl<<"Student "<<i+1<<"Details :"<<endl;
-         s[i].Display();
-     }
-
-
-cout<<endl<<endl<<"24CE001_Satvi_Akola";
-
-     return 0;
- }
+        default:
+            cout << "Invalid choice!" << endl;
+        }
+    }
+}
