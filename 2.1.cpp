@@ -35,12 +35,12 @@ public:
 int main()
 
 {
-    int n;
+    int noofRectangle;
     cout<<endl<<"enter for how many rectangles you want to calculate data: ";
-    cin>>n;
+    cin>>noofRectangle;
 
-    Rectangle r[n];
-    for(int i=0 ; i<n ; i++)
+    Rectangle r[noofRectangle];
+    for(int i=0 ; i<noofRectangle ; i++)
     {
 
 
