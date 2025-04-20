@@ -1,15 +1,13 @@
 #include<iostream>
 using namespace std;
 
-class Product
-{
+class Product {
     int ProdID, Quantity;
     float Price;
     char ProdName[20];
 
 public:
-    void AddProd()
-    {
+    void AddProd() {
         cout << "Enter product ID: ";
         cin >> ProdID;
         cout << "Enter name of product: ";
@@ -17,92 +15,90 @@ public:
         cout << "Enter price of product: ";
         cin >> Price;
         Quantity = 1;
-
         cout << "Product is added successfully!" << endl;
     }
 
-    int getID()
-    {
+    int getID() {
         return ProdID;
     }
 
-    void UpdateQuan()
-    {
+    void UpdateQuan() {
         cout << "Enter no. of quantity to be update: ";
         cin >> Quantity;
         cout << "Quantity is updated successfully!" << endl;
     }
 
-    int CalculateValue()
-    {
+    float CalculateValue() {
         return Quantity * Price;
     }
 
-    void DisplayBill()
-    {
-        cout << ProdName << "\t";
-        cout << Quantity << "\t\t";
-        cout << Price << "\t" << CalculateValue() << endl;
+    void DisplayBill() {
+        cout << ProdName << "\t" << Quantity << "\t\t" << Price << "\t" << CalculateValue() << endl;
     }
 };
 
-int main() //Main function
-{
-    class Product P[100];
+int main() {
+    Product P[100];
     int Choice;
-    int ProdFind;
     int ProdCount = 0;
 
-    //Printing menu
     cout << "Enter 1 to add new product." << endl;
     cout << "Enter 2 to update quantity of product." << endl;
     cout << "Enter 3 to display bill." << endl;
     cout << "Enter 0 to exit." << endl;
     cout << "======================================" << endl;
 
-next:
-    cout << "Enter the option which you want: ";
-    cin >> Choice;
+    while (true) {
+        cout << "Enter the option which you want: ";
+        cin >> Choice;
 
-    switch (Choice) //Switch case
-    {
-    case 1: //Case for adding new product
-    {
-        P[ProdCount].AddProd(); //Calling AddProd function
-        ProdCount++; //Increment of ProductCount
-        break; //Break statement
-    }
-
-    case 2: //Case for updating product's quantity
-    {
-        int ProdFind; //Variable for matching product ID
-
-        cout << "Enter product ID: ";
-        cin >> ProdFind;
-
-        for (int i = 0; i < ProdCount; i++)
-        {
-            if (P[i].getID() == ProdFind) // FIXED: was P[i].ProdID()
-            {
-                P[i].UpdateQuan();
-                break;
-            }
-
-            else //If not...
-            {
-                cout << "Product not found!" << endl;
-                break;
-            }
+        switch (Choice) {
+        case 1: {
+            P[ProdCount].AddProd();
+            ProdCount++;
+            break;
         }
-        break;
-    }
 
-    case 3:
-    {
-        int TotalValue = 0; //Initializing TotalValue variable to 0
+        case 2: {
+            int ProdFind;
+            cout << "Enter product ID: ";
+            cin >> ProdFind;
 
-        cout << "--------------------------------------" << endl;
-        cout << "Name\tQuantity\tPrice\tTotal" << endl;
-    }
+            bool found = false;
+            for (int i = 0; i < ProdCount; i++) {
+                if (P[i].getID() == ProdFind) {
+                    P[i].UpdateQuan();
+                    found = true;
+                    break;
+                }
+            }
+            if (!found) {
+                cout << "Product not found!" << endl;
+            }
+            break;
+        }
+
+        case 3: {
+            float TotalValue = 0;
+            cout << "--------------------------------------" << endl;
+            cout << "Name\tQuantity\tPrice\tTotal" << endl;
+            cout << "--------------------------------------" << endl;
+            for (int i = 0; i < ProdCount; i++) {
+                P[i].DisplayBill();
+                TotalValue += P[i].CalculateValue();
+            }
+            cout << "--------------------------------------" << endl;
+            cout << "TOTAL VALUE = " << TotalValue << endl;
+            cout << "--------------------------------------" << endl;
+            break;
+        }
+
+        case 0: {
+            return 0;
+        }
+
+        default:
+            cout << "Invalid choice!" << endl;
+        }
     }
 }
