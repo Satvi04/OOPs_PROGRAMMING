@@ -14,7 +14,7 @@ public:
         c = a + b;
     }
 
-    void display() {
+    void Display() {
         cout << "The value of int value: " << z << endl;
         cout << "The value of float value: " << c << endl;
     }
@@ -24,5 +24,5 @@ int main() {
     Calculator c;
     c.add(1, 2);
     c.add(1.2f, 1.2f);
-    c.display();
+    c.Display();
 }
