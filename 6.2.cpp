@@ -24,7 +24,7 @@ public:
         return this;
     }
 
-    void display() const
+    void Display() const
     {
         cout << "Current Coordinates: (" << x << ", " << y << ")\n";
     }
@@ -52,7 +52,7 @@ int main()
         p->moveBy(dx, dy);
     }
 
-    p->display();
+    p->Display();
 
 
     delete p;
